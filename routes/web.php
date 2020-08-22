@@ -57,8 +57,7 @@ Route::middleware('auth')->group(function(){
     Route::post('/citas/{cita}/cancel', 'CitaController@postCancel');
     Route::post('/citas/{cita}/confirm', 'CitaController@postConfirm');
 
-    Route::get('/especialidades/{especialidad}/doctores', 'Api\EspecialidadController@doctores');
-    Route::get('/horarios/horas', 'Api\HorarioController@horas');
+    
 });
 
     

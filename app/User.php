@@ -5,11 +5,12 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 use App\Cita;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasApiTokens;
 
     protected $fillable = [
         'nombre', 'email', 'password','dni', 'direccion', 'telefono', 'rol'
@@ -17,7 +18,8 @@ class User extends Authenticatable
 
     
     protected $hidden = [
-        'password', 'remember_token', 'pivot'
+        'password', 'remember_token', 'pivot',
+         'email_verified_at', 'created_at', 'updated_at'
     ];
 
         protected $casts = [
