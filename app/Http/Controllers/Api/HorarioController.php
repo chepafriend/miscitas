@@ -17,7 +17,7 @@ class HorarioController extends Controller
             'doctor_id'=>'required|exists:users,id'
         ];
         
-        $this->validate($request, $rules);
+        $request->validate($rules);
 
     }
 
