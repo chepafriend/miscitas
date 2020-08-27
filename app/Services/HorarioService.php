@@ -37,11 +37,13 @@ class HorarioService implements HorarioServiceInterface
                 'inicio_tarde', 'fin_tarde']);
     
     if(!$diaLaborable){
-    return [];
+      $intervalosManana = $this->getIntervalos($diaLaborable->inicio_manana, $diaLaborable->fin_manana, $fecha, $doctorId);
+      $intervalosTarde = $this->getIntervalos($diaLaborable->inicio_tarde, $diaLaborable->fin_tarde, $fecha, $doctorId);
+    } else {
+      $intervalosManana = [];
+      $intervalosManana = [];
     }
-    $intervalosManana = $this->getIntervalos($diaLaborable->inicio_manana, $diaLaborable->fin_manana, $fecha, $doctorId);
-    $intervalosTarde = $this->getIntervalos($diaLaborable->inicio_tarde, $diaLaborable->fin_tarde, $fecha, $doctorId);
-    
+   
     $data = [];
     $data['manana'] = $intervalosManana;
     $data['tarde'] = $intervalosTarde;
