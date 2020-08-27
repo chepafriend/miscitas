@@ -36,12 +36,12 @@ class HorarioService implements HorarioServiceInterface
         ->first(['inicio_manana', 'fin_manana',
                 'inicio_tarde', 'fin_tarde']);
     
-    if(!$diaLaborable){
+    if($diaLaborable){
       $intervalosManana = $this->getIntervalos($diaLaborable->inicio_manana, $diaLaborable->fin_manana, $fecha, $doctorId);
       $intervalosTarde = $this->getIntervalos($diaLaborable->inicio_tarde, $diaLaborable->fin_tarde, $fecha, $doctorId);
     } else {
       $intervalosManana = [];
-      $intervalosManana = [];
+      $intervalosTarde = [];
     }
    
     $data = [];
