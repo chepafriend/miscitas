@@ -38,7 +38,7 @@ function cargarHoras() {
 function displayHoras(data) {
     if (
         (!data.manana && !data.tarde) ||
-        (data.manana.length == 0 && data.tarde.length == 0)
+        (data.manana.length === 0 && data.tarde.length === 0)
     ) {
         $horas.html(alertaSinHoras);
         return;
