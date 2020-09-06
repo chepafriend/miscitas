@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCita;
+use App\Cita;
 use Auth;
 
 class CitasController extends Controller
@@ -29,10 +31,10 @@ class CitasController extends Controller
         "created_at",
         "estado"]);
     }
-   // public function store(){
+    public function store(StoreCita $request){
 
-      //  return null
-    //}
-    
-    //
+        $exito= Cita::creadoPorPaciente($request, auth()->id());
+
+        return compact('exito');
+    }
 }

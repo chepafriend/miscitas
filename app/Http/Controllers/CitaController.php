@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Interfaces\HorarioServiceInterface;
+use App\Http\Requests\StoreCita;
 use App\Especialidad;
 use Carbon\Carbon;
 use App\Cita;
 use App\CitaCancelada;
 use Validator;
-
 
 class CitaController extends Controller
 {
@@ -76,58 +76,14 @@ class CitaController extends Controller
         return view('citas.create', compact('especialidades','doctores', 'intervalos'));
     }
    
-    public function store(Request $request, HorarioServiceInterface $horarioService)
+    public function store(StoreCita $request)
     {  
-        $rules=[
-            'descripcion'=>'required',
-            'especialidad_id'=>'exists:especialidads,id',
-            'doctor_id'=>'exists:users,id',
-            'hora_programada'=>'required',
-        ];
-        $messages=[
-            'hora_programada.required'=>"Seleccione una hora valida para su cita.",
-               ];
-
-        $validacion = Validator::make($request->all(), $rules, $messages);
-
-        $validacion->after(function($validacion) use($request, $horarioService){
-
-        $fecha = $request->input('fecha_programada');
-        $doctorId = $request->input('doctor_id');
-        $hora_programada = $request->input('hora_programada');
-
-        if($fecha && $doctorId && $hora_programada){
-            $inicio = new Carbon($hora_programada);
-        } else {
-            return;
-        }
-
-        if(!$horarioService->esIntervaloDisponible($fecha, $doctorId, $inicio)){
-
-            $validacion->errors()
-                ->add('hora_disponible', 'La hora seleccionada se encuentra reservada para otro paciente.');
-            }
-        });
-            if($validacion->fails()){
-                return back()
-                        ->withErrors($validacion)
-                        ->withInput();
-                   } 
-
-        $data = $request->only([
-            'descripcion',
-            'especialidad_id',
-            'doctor_id',
-            'fecha_programada',
-            'hora_programada', 
-            'tipo']); 
-            $data['paciente_id']=auth()->id();
-
-            $carbonHora = Carbon::createFromFormat('g:i A', $data['hora_programada']);
-            $data['hora_programada']=$carbonHora->format('H:i:s');
-            Cita::create($data);
-
-        $notificacion = 'La cita se ha registrado correctamente';
+        $creado= Cita::creadoPorPaciente($request, auth()->id());
+        
+        if($creado)
+            $notificacion = 'La cita se ha registrado correctamente';
+        else
+            $notificacion = 'Ocurrió un problema al registrar cita médica';
         return back()->with(compact('notificacion'));
         
     }

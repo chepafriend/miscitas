@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Especialidad;
 use App\User;
@@ -42,5 +43,23 @@ class Cita extends Model
     }
     public function getHoraProgramada12Attribute(){
         return (new Carbon($this->hora_programada))->format('g:i A');
+    }
+
+    static public function creadoPorPaciente(Request $request, $pacienteId){
+       
+        $data = $request->only([
+            'descripcion',
+            'especialidad_id',
+            'doctor_id',
+            'fecha_programada',
+            'hora_programada', 
+            'tipo']); 
+            
+            $data['paciente_id']=$pacienteId;
+
+            $carbonHora = Carbon::createFromFormat('g:i A', $data['hora_programada']);
+            $data['hora_programada']=$carbonHora->format('H:i:s');
+
+           return self::create($data);
     }
 }
