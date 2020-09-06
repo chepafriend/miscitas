@@ -19,5 +19,8 @@ Route::group([
     ], function() {
         Route::post('/logout', 'AuthController@logout');
         Route::get('/user', 'UserController@show');
+
+        Route::get('/citas', 'CitasController@index');
+        Route::post('/citas', 'CitasController@store');
     });
 });

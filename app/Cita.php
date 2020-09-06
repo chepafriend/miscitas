@@ -14,6 +14,14 @@ class Cita extends Model
         'descripcion', 'especialidad_id', 'doctor_id','paciente_id', 'fecha_programada','hora_programada', 'tipo'
     ];
 
+    protected $hidden = [
+        'especialidad_id', 'doctor_id','hora_programada'
+    ];
+
+    protected $appends = [
+        'hora_programada_12'
+    ];
+
     public function especialidad()
     {
         return $this->belongsTo(Especialidad::class);
