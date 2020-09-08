@@ -32,9 +32,13 @@ class CitasController extends Controller
         "estado"]);
     }
     public function store(StoreCita $request){
+        $pacienteId= Auth::id();
+        $cita= Cita::creadoPorPaciente($request, $pacienteId );
 
-        $exito= Cita::creadoPorPaciente($request, auth()->id());
-
+        if($cita)
+            $exito= true;
+        else
+            $exito= false;
         return compact('exito');
     }
 }

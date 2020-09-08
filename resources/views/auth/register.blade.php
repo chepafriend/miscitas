@@ -30,6 +30,14 @@
               <div class="form-group">
                 <div class="input-group input-group-alternative mb-3">
                   <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-badge"></i></span>
+                  </div>
+                  <input class="form-control" placeholder="DNI" type="number" id="dni" name="dni" value="{{ old('dni') }}" required autocomplete="dni">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group input-group-alternative mb-3">
+                  <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                   </div>
                   <input class="form-control" placeholder="Email" type="email" id="email" name="email" value="{{ old('email') }}" required autocomplete="email">

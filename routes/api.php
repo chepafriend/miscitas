@@ -6,12 +6,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/especialidades', 'EspecialidadController@index');
 Route::get('/especialidades/{especialidad}/doctores', 'EspecialidadController@doctores');
 Route::get('/horarios/horas', 'HorarioController@horas');
+Route::post('/login', 'AuthController@login');
+Route::post('/registro', 'AuthController@registro');
 
 Route::group([
     'prefix' => 'auth'
 ], function () {
-    Route::post('/login', 'AuthController@login');
-    Route::post('signup', 'AuthController@signUp');
     
 
     Route::group([

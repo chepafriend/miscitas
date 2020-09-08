@@ -4,30 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Validator;
 use Auth;
+use App\User;
 
 class AuthController extends Controller
 {
-    public function signUp(Request $request)
-    {
-        $request->validate([
-            'nombre' => 'required|string',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string'
-        ]);
-
-        User::create([
-            'nombre' => $request->nombre,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
-
-        return response()->json([
-            'message' => 'Successfully created user!'
-        ], 201);
-    }
-
-    /**
+        /**
      * Inicio de sesión y creación de token
      */
     public function login(Request $request)
@@ -73,9 +57,30 @@ class AuthController extends Controller
         
     }
 
-    /**
-     * Obtener el objeto User como json
-     */
-   
-    //
+    public function registro(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        Auth::login($user);
+
+        $tokenResult = $user->createToken('Personal Access Token');
+        $token = $tokenResult->token;       
+        $token->save();
+        $accesToken = $tokenResult->accessToken;
+        $exito = true;
+
+        return compact('exito', 'user','accesToken');
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, User::$rules);
+    }
+    
+    protected function create(array $data)
+    {
+        return User::crearPaciente($data);
+    }
 }
