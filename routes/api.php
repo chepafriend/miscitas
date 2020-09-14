@@ -22,5 +22,7 @@ Route::group([
 
         Route::get('/citas', 'CitasController@index');
         Route::post('/citas', 'CitasController@store');
+
+        Route::post('/fcm/token', 'FirebaseController@postToken');
     });
 });
