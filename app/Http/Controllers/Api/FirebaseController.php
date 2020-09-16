@@ -10,8 +10,9 @@ class FirebaseController extends Controller
     public function postToken(Request $request){
         $user= Auth::user();
 
-        if($request->has('device_token'))
-        $user->device_token= $request->input('device_token');
-        $user->save();
+        if($request->has('device_token')){
+            $user->device_token= $request->input('device_token');
+            $user->save();
+        }
     }
 }
