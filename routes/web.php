@@ -35,6 +35,8 @@ Route::middleware(['auth', 'administrador'])->namespace('Administrador')->group(
     Route::get('/reportes/doctores/barra', 'ReporteController@doctores');
     Route::get('/reportes/doctores/barra/data', 'ReporteController@doctoresJson');
 
+    Route::post('/fcm/send', 'FirebaseController@enviarTodos');
+
     Route::resource('doctores', 'DoctorController');
     Route::resource('pacientes', 'PacienteController');
     
