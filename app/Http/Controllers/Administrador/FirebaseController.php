@@ -11,7 +11,7 @@ class FirebaseController extends Controller
     public function enviarTodos(Request $request){
       
         $recipients= User::whereNotNull('device_token')->pluck('device_token')->toArray();
-
+            dd($recipients);
     fcm()
         ->to($recipients) // $recipients must an array
         ->data([
@@ -20,8 +20,10 @@ class FirebaseController extends Controller
                 ])
                 ->send();
 
-        $notificacion="notificacion enviada a todos los usuarios android";
+    
 
-        return back()->with(compact('notificacion'));
+        //$notificacion="notificacion enviada a todos los usuarios android";
+
+        //return back()->with(compact('notificacion'));
     }
 }
