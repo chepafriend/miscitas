@@ -68,4 +68,17 @@ class User extends Authenticatable
     public function citasCanceladas(){
         return $this->citasDoctores()->where('estado','cancelada');
     }
+
+    public function enviarFCM($mensaje){
+
+    return    fcm()->to([
+                $this->device_token
+                ]) // $recipients must an array
+                ->priority('high')
+                ->timeToLive(0)
+                ->notification([
+                'title' => config('app.name'),
+                'body' => $mensaje
+                ])->send();
+    }
 }

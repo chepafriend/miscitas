@@ -102,7 +102,11 @@ class CitaController extends Controller
 
           }
           $cita->estado = 'Cancelada';
-          $cita->save();
+          $guardado= $cita->save();
+
+        if($guardado)
+            $cita->paciente->enviarFCM('Su cita ha sido cancelada!');
+
           $notificacion = 'La cita se ha cancelado correctamente';
 
           return redirect('/citas')->with(compact('notificacion'));
@@ -117,10 +121,14 @@ class CitaController extends Controller
 
     public function postConfirm(Cita $cita) {
         $cita->estado = 'Confirmada';
-        $cita->save();
+        $guardado= $cita->save();
+
+        if($guardado)
+            $cita->paciente->enviarFCM('Su cita se ha confirmado!');
+
         $notificacion = 'La cita se ha confirmado correctamente';
 
-          return redirect('/citas')->with(compact('notificacion'));
+        return redirect('/citas')->with(compact('notificacion'));
         }
        
 }

@@ -42,20 +42,16 @@
                     
                     <button type="submit" title= "Confirmar Cita" class= "btn btn-success btn-sm" data-toggle = "tooltip">
                     <i class= "ni ni-check-bold"></i></button>
-                    @endif 
-
-                    @if($rol == 'doctor'|| $rol == 'administrador')
-                    <a  href="{{ url('/citas/'.$cita->id.'/cancel') }}" title= "Cancelar Cita" class= "btn btn-danger btn-sm" data-toggle = "tooltip">
-                   <i class= "ni ni-fat-delete"></i>
-                    @else 
+                    </form>
+                    @endif
+                    
                     <form  action="{{ url('/citas/'.$cita->id.'/cancel') }}" method="POST" class= "d-inline-block">
                     @csrf
                   
                     <button type="submit" title= "Cancelar Cita" class= "btn btn-danger btn-sm" data-toggle = "tooltip">
                     <i class= "ni ni-fat-delete"></i></button>
                     </form>
-                    @endif 
-                     </td>                    
+                    </td>                    
                   </tr>
                 @endforeach
                 </tbody>
