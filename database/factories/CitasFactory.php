@@ -18,7 +18,7 @@ $factory->define(Cita::class, function (Faker $faker) {
     $hora_programada= $fecha->format('H:i:s');
 
     $tipos= ['Consulta', 'Examen', 'Operacion'];
-    $estados= ['atendida', 'cancelada'];
+    $estados= ['Atendida', 'Cancelada'];
 
     return [
 

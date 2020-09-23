@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\enviarNotificaciones::class
     ];
 
     /**
@@ -23,8 +23,11 @@ class Kernel extends ConsoleKernel
      * @return void
      */
     protected function schedule(Schedule $schedule)
-    {
-        // $schedule->command('inspire')->hourly();
+    {   
+        $filePath= storage_path('logs/fcm_send.log');
+
+        $schedule->command('fcm:enviar')->everyFiveMinutes()
+                    -> appendOutputTo($filePath);
     }
 
     /**
