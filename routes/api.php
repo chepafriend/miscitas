@@ -19,6 +19,7 @@ Route::group([
     ], function() {
         Route::post('/logout', 'AuthController@logout');
         Route::get('/user', 'UserController@show');
+        Route::post('/user', 'UserController@update');
 
         Route::get('/citas', 'CitasController@index');
         Route::post('/citas', 'CitasController@store');
