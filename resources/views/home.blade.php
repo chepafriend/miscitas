@@ -68,7 +68,10 @@
           </div>
         </div>
         @endif
-</div>
-       
+</div>       
+@endsection
 
+@section('scripts')
+<script> const citasPorDia= @json($citasPorDia); </script>
+<script src="{{ asset('js/reportes/home.js?v=1.0.0') }}"></script>
 @endsection
