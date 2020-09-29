@@ -51,15 +51,23 @@ Route::middleware(['auth', 'doctor'])->namespace('Doctor')->group(function(){
 });
 
 Route::middleware('auth')->group(function(){
-    Route::get('/citas/create', 'CitaController@create');
-    Route::post('/citas', 'CitaController@store');
+
+    Route::get('/perfil', 'UserController@edit');
+    Route::post('/perfil', 'UserController@update');
+
+    Route::middleware('telefono')->group(function(){
+        Route::get('/citas/create', 'CitaController@create');
+        Route::post('/citas', 'CitaController@store');
+    });
+
     Route::get('/citas', 'CitaController@index');
     Route::get('/citas/{cita}', 'CitaController@show');
+
+        
     Route::get('/citas/{cita}/cancel', 'CitaController@showCancelForm');
     Route::post('/citas/{cita}/cancel', 'CitaController@postCancel');
-    Route::post('/citas/{cita}/confirm', 'CitaController@postConfirm');
 
-    
+    Route::post('/citas/{cita}/confirm', 'CitaController@postConfirm');    
 });
 
     

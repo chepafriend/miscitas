@@ -104,7 +104,7 @@
                   <img alt="Image placeholder" src="{{ asset('img/theme/user-icon-vector.jpg')}}">
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->name}}</span>
+                  <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->nombre}}</span>
                 </div>
               </div>
             </a>
